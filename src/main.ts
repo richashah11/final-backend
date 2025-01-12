@@ -5,14 +5,19 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // app.enableCors({
+  //   origin: '*', // Allow all origins (you can restrict it to specific domains)
+  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  //   allowedHeaders: 'Content-Type, Accept',
+  //   credentials: true,  // If you want to allow credentials like cookies or tokens
+  // });
+
   app.enableCors({
-    origin: '*', // Allow all origins (you can restrict it to specific domains)
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: 'Content-Type, Accept',
-    credentials: true,  // If you want to allow credentials like cookies or tokens
+    origin: ['http://localhost:3000'], // Restricts allowed origins
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', // Keeps allowed methods
+    allowedHeaders: 'Content-Type, Accept, Authorization', // Adds Authorization header
+    credentials: true, // Allows credentials like cookies or tokens
   });
-
-
   const config = new DocumentBuilder()
     .setTitle('Nurse-Management')
     .setDescription(
